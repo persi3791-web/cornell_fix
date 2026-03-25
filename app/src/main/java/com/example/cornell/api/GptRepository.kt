@@ -15,8 +15,8 @@ object GptRepository {
     private const val MODEL = "gpt-4o"
 
     // Token viene de BuildConfig, nunca hardcodeado
-    private val githubToken: String
-        get() = BuildConfig.GITHUB_TOKEN
+    var githubToken: String
+        get() = if (field.isNotBlank()) field else BuildConfig.GITHUB_TOKEN
 
     suspend fun generateText(prompt: String): String? = withContext(Dispatchers.IO) {
         chat(listOf(Pair("user", prompt)))
