@@ -68,8 +68,6 @@ fun ExportModal(
 
     // Estado del modelo
     var useGpt4 by remember { mutableStateOf(ModelPreference.useGpt4) }
-    var tokenInput by remember { mutableStateOf(GptRepository.githubToken) }
-
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -200,28 +198,6 @@ fun ExportModal(
                                     useGpt4 = it
                                     ModelPreference.useGpt4 = it
                                 }
-                            )
-                        }
-
-                        if (useGpt4) {
-                            OutlinedTextField(
-                                value = tokenInput,
-                                onValueChange = {
-                                    tokenInput = it
-                                    GptRepository.githubToken = it
-                                },
-                                label = { Text("GitHub Token") },
-                                placeholder = { Text("ghp_xxxxxxxxxxxx") },
-                                singleLine = true,
-                                modifier = Modifier.fillMaxWidth(),
-                                leadingIcon = {
-                                    Icon(Icons.Default.Key, contentDescription = null, tint = CornellPrimary)
-                                }
-                            )
-                            Text(
-                                "Obtén tu token gratis en:\ngithub.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = CornellTextSecondary
                             )
                         }
                     }
