@@ -8,6 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        buildConfigField("String", "GITHUB_TOKEN", "\"${System.getenv("GITHUB_TOKEN") ?: ""}\"")
         applicationId = "com.example.cornell"
         minSdk = 24
         targetSdk = 34
@@ -33,6 +34,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {

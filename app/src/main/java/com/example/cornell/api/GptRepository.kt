@@ -1,5 +1,6 @@
 package com.example.cornell.api
 
+import com.example.cornell.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -10,16 +11,19 @@ import java.net.URL
 
 object GptRepository {
 
-    var githubToken: String = "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"
     private const val ENDPOINT = "https://models.inference.ai.azure.com/chat/completions"
     private const val MODEL = "gpt-4o"
+
+    // Token viene de BuildConfig, nunca hardcodeado
+    private val githubToken: String
+        get() = BuildConfig.GITHUB_TOKEN
 
     suspend fun generateText(prompt: String): String? = withContext(Dispatchers.IO) {
         chat(listOf(Pair("user", prompt)))
     }
 
     suspend fun chat(messages: List<Pair<String, String>>): String? = withContext(Dispatchers.IO) {
-        if (githubToken.isBlank()) return@withContext "⚠️ Configura tu GitHub Token en Ajustes"
+        if (githubToken.isBlank()) return@withContext "⚠️ Token no configurado en GitHub Actions"
         try {
             val conn = (URL(ENDPOINT).openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
