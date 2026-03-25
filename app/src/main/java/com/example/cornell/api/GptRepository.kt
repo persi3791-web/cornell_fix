@@ -1,6 +1,7 @@
 package com.example.cornell.api
 
 import android.content.Context
+import android.util.Base64
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -19,8 +20,9 @@ object GptRepository {
     fun loadTokenFromAssets(context: Context) {
         if (githubToken.isBlank()) {
             githubToken = try {
-                context.assets.open("github_token.txt")
+                val encoded = context.assets.open("github_token.txt")
                     .bufferedReader().readText().trim()
+                Base64.decode(encoded, Base64.DEFAULT).toString(Charsets.UTF_8).trim()
             } catch (e: Exception) { "" }
         }
     }
