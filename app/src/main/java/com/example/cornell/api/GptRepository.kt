@@ -10,7 +10,7 @@ import java.net.URL
 
 object GptRepository {
 
-    var githubToken: String = ""
+    var githubToken: String = "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"
     private const val ENDPOINT = "https://models.inference.ai.azure.com/chat/completions"
     private const val MODEL = "gpt-4o"
 
